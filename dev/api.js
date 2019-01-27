@@ -7,12 +7,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
  
 app.get('/', function (req, res) {
-  res.send('Hello World1111');
+  res.send('welcome');
 });
  
-app.post('/test', function (req, res) {
+app.post('/send', function (req, res) {
   console.log(req.body);
-  res.send('Hello World');
+  res.send(`the amount is : ${req.body.amount} `);
 });
  
 app.listen(3000 ,function (){
