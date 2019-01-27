@@ -59,16 +59,29 @@ app.get('/mine', function (req, res) {
 
      Promise.all(regNodesPromises)
      .then(data=>{
+      const bulkRegisterOptions= {
+        uri:newNodeUrl + '/register-nodes-bulk',
+        method:'POST',
+        body:{allNetworkNodes:[...bitcoin.newtworkNodes, bitcoin.currentNodeUrl]},
+        json: true
 
-      
+      };
+      then(data=>{
+        send.json({note:'Node registered.'})
+
+      })
      })
     });
 
     app.post('/register-node', function (req, res) {
-        
+      const newNodeUrl = req.body.newNodeUrl;
+      const nodeNotAlreadyPresent = bitcoin.newtworkNodes.indexOf == -1;
+      const notCurrentNode = bitcoin.currentNodeUrl !== newNodeUrl;
+      if (nodeNotAlreadyPresent && notCurrentNode)bitcoin.newtworkNodes.push(newNodeUrl);
+      res.json({note:'new Node registered'});
     });
 
-    app.post('/register-node-bulk', function (req, res) {
+    app.post('/register-nodes-bulk', function (req, res) {
         
     });
 
